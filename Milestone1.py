@@ -16,7 +16,7 @@ if(userRegister == 'y') or (userRegister == 'Y'):
   # Opens file for user data storage, currently implemented with basic text file
   file = open('UserInfo.txt', 'wb')
   # prints plaintext user data to file format "Full Name Email Password")
-  file.print(userFullName, ' ', userEmail, ' ', password);
+  file.print(userFullName, ' ', userEmail, ' ', password)
 else:
    # currently implemented to exit program upon user choosing not to register
    exit();
