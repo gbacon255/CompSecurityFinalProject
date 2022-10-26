@@ -1,8 +1,10 @@
+#imports modules
 import getpass
 import sys
 import crypt
 import json
 from cryptography.fernet import Fernet
+
 def getPassword():
   # while loop set to run until same strings are entered
   while(1):
@@ -23,15 +25,19 @@ def encryptInit():
     key = keyIn.read()
     return key
 
+# formats user data into a json string and appends to a json file
 def jsonPrint(userName, userEmail, password):
     data = {
             "Name": userName,
             "Email": userEmail,
             "Password": password
-         }   
+         } 
+    # formats the json string
     jsonFormat = json.dumps(data, indent = 3)
+    #opens file to append mode and appends data
     jsonApp = open("UserInfo.json", "a+")
     json.dump(jsonFormat, jsonApp)
+    jsonApp.close()
 
 # sets salt for password hashing
 salt ='test'
