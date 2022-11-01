@@ -9,6 +9,28 @@ import re
 from cryptography.fernet import Fernet
 from Crypto.Hash import SHA256
 
+def commandLoop():
+    print('Type "help" for commands\n')
+    while(1):
+        menuInput = input('SecureDrop>')
+        if(menuInput ==  'exit'):
+            break
+        if(menuInput == 'add'):
+            addContact()
+        if(menuInput == 'help'):
+            helpMenu()
+def helpMenu():
+    print('"add"  ->  Add a new contact')
+    print('"list" ->  List all online contacts')
+    print('"send" ->  Transfer file to contact')
+    print('"exit" ->  Exit SecureDrop')
+
+def addContact():
+    contactName = input("Enter Full Name: ")
+    contactEmail = input("Enter Email Address: ")
+    #insert pass to json here
+    print("Contact Added.")
+
 def passwordValidation(passwd) -> bool:
     l, u, p, d = 0, 0, 0, 0
     regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
@@ -102,7 +124,7 @@ salt = hash_object.hexdigest()
 #Password
 # prompts the user to choose yes or no to creating new account
 # to handle user input in this program, the input function was used.
-if(os.path.exiasts("UserInfo.json")):
+if(os.path.exists("UserInfo.json")):
     with open('UserInfo.json', 'r') as file:
         data= json.load(file)
     while (1): 
@@ -112,6 +134,7 @@ if(os.path.exiasts("UserInfo.json")):
         entered_pw = crypt.crypt(userPassword, salt)
         if(userEmail == data["Email"] and entered_pw == data["Password"]):
             print("Welcome\n")
+            commandLoop();
             break;
         else:
             print(f"Incorrect user {data[1]}\n")
