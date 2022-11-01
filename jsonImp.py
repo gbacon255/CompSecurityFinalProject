@@ -19,16 +19,29 @@ def commandLoop():
             addContact()
         if(menuInput == 'help'):
             helpMenu()
+
 def helpMenu():
     print('"add"  ->  Add a new contact')
     print('"list" ->  List all online contacts')
     print('"send" ->  Transfer file to contact')
     print('"exit" ->  Exit SecureDrop')
 
+def write_json(ContactData, filename="UserInfo.json"):
+    with open (filename, 'w') as file:
+        json.dump(ContactData, file, indent=4)
+    file.close()
+
+
 def addContact():
     contactName = input("Enter Full Name: ")
     contactEmail = input("Enter Email Address: ")
     #insert pass to json here
+    with open ("UserInfo.json") as file:
+        pData = json.load(file)
+        temp = pData['Contacts']
+        y = {"ContactName": contactName, "ContactEmail": contactEmail}
+        temp.append(y)
+    write_json(pData)
     print("Contact Added.")
 
 def passwordValidation(passwd) -> bool:
@@ -91,10 +104,16 @@ def encryptInit():
 # formats user data into a json string and appends to a json file
 def jsonPrint(userName, userEmail, password):
     data = {
-                "Name": userName,
-                "Email": userEmail,
-                "Password": password
-         } 
+                "Name":userName,
+                "Email":userEmail,
+                "Password":password,
+                "Contacts":[
+                    {
+                        "ContactName": 'NULL',
+                        "ContactEmail":'NULL'
+                    }
+                ]
+            }
     # formats the json string
     jsonFormat = json.dumps(data, indent = 4)
     #opens file to append mode and appends data
@@ -137,7 +156,7 @@ if(os.path.exists("UserInfo.json")):
             commandLoop();
             break;
         else:
-            print(f"Incorrect user {data[1]}\n")
+            print("Incorrect user")
         
 else:
     print("No users are registered with this client\n")
