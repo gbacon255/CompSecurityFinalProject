@@ -75,7 +75,7 @@ def getPassword():
         userPassword2 = getpass.getpass()
 
         if(attemptsCounter == 1):
-            print("Three are the maximunm ammount of attempts")
+            print("Maximum number of attempts exceeded.")
             print("Exiting SecureDrop.\n")
             exit()
         elif (userPassword1 != userPassword2):
@@ -86,11 +86,11 @@ def getPassword():
                 password = userPassword1
                 break
             else:
-                print("The Character needs to have the following:")
-                print("8 Character")
-                print("1 Upper lettter Character")
-                print("1 lower lettter Character")
-                print("1 special Character")
+                print("The password needs to have the following:")
+                print("8 characters")
+                print("1 uppercase character")
+                print("1 lowercase character")
+                print("1 special character")
                 print("Please try again")
 
     return password
@@ -121,7 +121,7 @@ def jsonPrint(userName, userEmail, password):
         file.write(jsonFormat)
 
 def registerUsername():
-    userRegister = input('Do you want to register a new account: (y/n): ')
+    userRegister = input('Do you want to register a new account?: (y/n): ')
     #if user chooses to generate a new account
     if(userRegister == 'y') or (userRegister == 'Y'):
         # Grabs user full name
